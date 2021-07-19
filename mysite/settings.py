@@ -55,7 +55,9 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            '/reorev/html_file'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
