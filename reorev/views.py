@@ -7,4 +7,5 @@ def home(request):
     return HttpResponse("Welcome to my hosue !")
 
 def login(request):
-    return HttpResponse(loader.select_template('reorev/html_file/login.html').render())
+    temp = loader.get_template('login.html')
+    return HttpResponse(temp.render())
