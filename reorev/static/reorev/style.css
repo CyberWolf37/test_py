@@ -1,0 +1,15 @@
+body 
+{
+  background-color: rgb(209, 209, 209);
+  text-align: center!important;
+}
+
+h1
+{ color: #006080; font-weight: bold;}
+
+.form-login {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
