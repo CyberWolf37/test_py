@@ -9,3 +9,7 @@ def home(request):
 def login(request):
     temp = loader.get_template('login.html')
     return HttpResponse(temp.render())
+
+def signin(request):
+    temp = loader.get_template('signin.html')
+    return HttpResponse(temp.render())
