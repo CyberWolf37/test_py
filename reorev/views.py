@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context, context, loader
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import SignInForm
+from .forms import LogInForm, SignInForm
 from .models import Profile
 
 # Create your views here.
@@ -22,26 +22,33 @@ def home(request):
         return HttpResponse(temp_login.render(context, request))
 
 def login(request):
-    temp = loader.get_template('login.html')
-    return HttpResponse(temp.render())
+    if request.method == 'POST':
+        form = LogInForm(request.POST)
+        if form.is_valid():
+            profil = Profile.objects.filter(email=form.cleaned_data['user_email'], password=form.cleaned_data['user_password'])
+            if profil.count() == 1:
+                 return HttpResponseRedirect('/')
+            else:
+                return HttpResponseRedirect('/login/')
+            
+        else:
+            return HttpResponseBadRequest()
 
-@csrf_exempt
+    elif request.method == 'GET':
+        form = LogInForm(request.POST)
+        return render(request, 'login.html', {'form': form})
+
 def signin(request):
-    print('Hello')
     if request.method == 'POST':
         form = SignInForm(request.POST)
-        print(form)
         if form.is_valid():
-            profil = form.cleaned_data
-            #profil.email = form.user_email
-            #profil.password = form.user_password
-            print(profil)
-            #profil.save()
+            profil = Profile.create(email=form.cleaned_data['user_email'],password=form.cleaned_data['user_password'])
+            profil.save()
             return HttpResponseRedirect('/login/')
         else:
             return HttpResponseBadRequest()
 
     elif request.method == 'GET':
-        temp = loader.get_template('signin.html')
-        return HttpResponse(temp.render())
+        form = SignInForm()
+        return render(request, 'signin.html', {'form': form})
     
