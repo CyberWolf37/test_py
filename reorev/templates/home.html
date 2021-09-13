@@ -12,23 +12,32 @@
 </head>
 
 <body>
-    <div class="column">
-        <div class="col-2 sidebar">
-            <div class="d-flex flex-column">
-                <div class="col justify-content-center">
-                    <hr class="bg-white"/>
-                        <ul class="nav nav-pills flex-column mb-auto">
-                            <li class="nav-item">
-                                <a href="/login">Acceuil</a>
-                            </li>
-                            <li class="nav-item">
-                                Article
-                            </li>
-                        </ul>
-                    <hr class="bg-white"/>
-                </div>
-            </div>      
+    {% if registered %}
+        <div class="column">
+            <div class="col-2 sidebar">
+                {% block sidebar %}
+                    <div class="d-flex flex-column">
+                        <div class="col justify-content-center">
+                            <hr class="bg-white"/>
+                                <ul class="nav nav-pills flex-column mb-auto">
+                                    <li class="nav-item">
+                                        <a href="/blog">Blog</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/ideabox">Boîte à idée</a>
+                                    </li>
+                                </ul>
+                            <hr class="bg-white"/>
+                        </div>
+                    </div> 
+                {% endblock%}   
+            </div>
+            <div class="col-10">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
-    </div>
+    {% else %}
+    {% endif %}
 </body>
 </html>
