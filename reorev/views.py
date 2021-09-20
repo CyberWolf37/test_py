@@ -5,6 +5,7 @@ from django.template import Context, context, loader
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as login_dj
+from django.contrib import messages
 
 from .forms import LogInForm, SignInForm
 
@@ -19,6 +20,16 @@ def home(request):
     else :
         return HttpResponseRedirect('/login/')
 
+def ideabox(request):
+    #temp_home = loader.get_template('home.html')
+    #temp_login = loader.get_template('login.html')
+    #return HttpResponse(temp.render(context, request))
+
+    if request.user.is_authenticated :
+        return render(request, 'ideabox.html')
+    else :
+        return HttpResponseRedirect('/login/')
+
 def login(request):
 
     if request.method == 'POST':
@@ -29,7 +40,8 @@ def login(request):
                 login_dj(request,profil)
                 return HttpResponseRedirect('/')
             else:
-                return HttpResponseNotFound()
+                messages.add_message(request, messages.WARNING, "Sorry it's a bad credentials!")
+                return HttpResponseRedirect('/login')
             
         else:
             return HttpResponseBadRequest()

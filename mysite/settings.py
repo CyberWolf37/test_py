@@ -127,3 +127,9 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = ['mysite.backend.EmailBackend']
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.WARNING: 'alert alert-danger',
+}
